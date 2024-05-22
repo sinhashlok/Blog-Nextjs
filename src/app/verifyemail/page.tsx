@@ -1,22 +1,11 @@
 "use client";
 
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import Link from "next/link";
+import { Suspense, useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import Timer from "@/components/Timer";
 
-export function Timer() {
-  const router = useRouter();
-  useEffect(() => {
-    setTimeout(() => {
-      router.push("/login");
-    }, 5000);
-  }, []);
-
-  return <div>Redirecting to Log in page, in 5 secods</div>;
-}
-
-const VerifyEmail = () => {
+const VerifyToken = () => {
   const searchParams = useSearchParams();
   const [token, setToken] = useState<string>("");
   const [verified, setVerified] = useState<boolean>(false);
@@ -65,6 +54,14 @@ const VerifyEmail = () => {
         )}
       </div>
     </div>
+  );
+};
+
+const VerifyEmail = () => {
+  return (
+    <Suspense>
+      <VerifyToken />
+    </Suspense>
   );
 };
 

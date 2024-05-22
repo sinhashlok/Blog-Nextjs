@@ -42,7 +42,8 @@ export default function Login() {
         router.push("/dashboard");
       })
       .catch((err: AxiosError) => {
-        toast.error(err?.response?.data?.message);
+        const data: any = err?.response?.data;
+        toast.error(data?.message);
       });
   }
 
