@@ -18,9 +18,11 @@ export const roboto_mono = Ubuntu_Mono({
 const Nav = () => {
   return (
     <nav className="py-4 flex flex-row justify-between">
-      <h1 className={`${roboto_mono.className} text-4xl text-teal-400`}>
-        blog.me
-      </h1>
+      <Link href="/">
+        <h1 className={`${roboto_mono.className} text-4xl text-teal-400`}>
+          blog.me
+        </h1>
+      </Link>
       <div className={`flex flex-row ${poppinsB.className}`}>
         <Button variant="ghost" className="mr-2">
           <Link href="/login">Log in</Link>

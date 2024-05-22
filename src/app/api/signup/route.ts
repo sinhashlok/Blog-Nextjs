@@ -3,9 +3,9 @@ import connect from "@/lib/dbConnect";
 import User from "@/model/user";
 import { signupSchema } from "@/schema/signupSchema";
 import bcryptjs from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 connect();
-
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -21,8 +21,9 @@ export async function POST(req: NextRequest) {
     const { fullname, username, email, password } = body;
 
     // Check if email or username already exists
-    const userEmail = await User.find({ email: email });
-    const userName = await User.find({ username: username });
+    const userEmail = await User.findOne({ email: email });
+    const userName = await User.findOne({ username: username });
+
     if (userEmail) {
       return NextResponse.json(
         { message: "Email already exists", success: false },
@@ -48,11 +49,21 @@ export async function POST(req: NextRequest) {
     });
     await user.save();
 
-    return NextResponse.json(
+    const token = jwt.sign(
+      { userId: user._id, name: user.fullname },
+      process.env.SECRET_TOKEN || ""
+    );
+
+    const res = NextResponse.json(
       { message: "User created successfully", success: true },
       { status: 200 }
     );
+    res.cookies.set("token", token);
+    return res;
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json(
+      { error: error.message, success: false },
+      { status: 500 }
+    );
   }
 }

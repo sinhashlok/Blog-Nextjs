@@ -58,6 +58,9 @@ export async function POST(req: NextRequest) {
     res.cookies.set("token", token);
     return res;
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json(
+      { error: error.message, success: false },
+      { status: 500 }
+    );
   }
 }

@@ -15,6 +15,11 @@ const userSchema: Schema<userInterface> = new Schema({
     type: String,
     required: [true, "Enter Fullname"],
   },
+  username: {
+    type: String,
+    required: [true, "Username is required"],
+    unique: true,
+  },
   email: {
     type: String,
     required: [true, "Enter Email address"],
@@ -25,16 +30,16 @@ const userSchema: Schema<userInterface> = new Schema({
     type: String,
     required: [true, "Password is required"],
   },
-  verifyCode: String,
-  verifyCodeExpiry: Date,
-  isVerified: {
-    type: Boolean,
-    default: false,
-  },
+  // verifyCode: String,
+  // verifyCodeExpiry: Date,
+  // isVerified: {
+  //   type: Boolean,
+  //   default: false,
+  // },
 });
 
 const User =
   (mongoose.models.User as mongoose.Model<userInterface>) ||
-  mongoose.model<userInterface>("user", userSchema);
+  mongoose.model<userInterface>("User", userSchema);
 
 export default User;
