@@ -4,18 +4,8 @@ import axios from "axios";
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/router";
-
-function Timer() {
-  const router = useRouter();
-  useEffect(() => {
-    setTimeout(() => {
-      router.push("/login");
-    }, 5000);
-  }, []);
-
-  return <div>Redirecting to Log in page, in 5 secods</div>;
-}
-
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const VerifyToken = () => {
   const searchParams = useSearchParams();
@@ -56,7 +46,9 @@ const VerifyToken = () => {
         {verified && (
           <div className="flex flex-col items-center mt-10">
             <h2>Verified</h2>
-            <Timer />
+            <Link href="/login">
+              <Button variant="link">Log In</Button>
+            </Link>
           </div>
         )}
         {error && (

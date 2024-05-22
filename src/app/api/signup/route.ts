@@ -3,7 +3,7 @@ import connect from "@/lib/dbConnect";
 import User from "@/model/user";
 import { signupSchema } from "@/schema/signupSchema";
 import bcryptjs from "bcryptjs";
-import { sendEmailVerificationToken } from "@/utils/sendEmailVerificationToken";
+import sendEmailVerificationToken from "@/utils/sendEmailVerificationToken";
 
 connect();
 export async function POST(req: NextRequest) {
