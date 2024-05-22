@@ -3,7 +3,19 @@
 import axios from "axios";
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import Timer from "@/components/Timer";
+import { useRouter } from "next/router";
+
+function Timer() {
+  const router = useRouter();
+  useEffect(() => {
+    setTimeout(() => {
+      router.push("/login");
+    }, 5000);
+  }, []);
+
+  return <div>Redirecting to Log in page, in 5 secods</div>;
+}
+
 
 const VerifyToken = () => {
   const searchParams = useSearchParams();
