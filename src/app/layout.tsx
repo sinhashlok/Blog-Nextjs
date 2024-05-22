@@ -24,9 +24,9 @@ export default function RootLayout({
         style={{
           background: "#0c0c0c",
         }}
-        className={`${poppins.className} text-white mx-40`}
+        className={`${poppins.className} text-white mx-6 md:mx-20 lg:mx-40`}
       >
-          {children}
+        {children}
       </body>
     </html>
   );

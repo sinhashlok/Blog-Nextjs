@@ -19,9 +19,13 @@ import { signupSchema } from "@/schema/signupSchema";
 import Nav from "@/components/Nav";
 import Link from "next/link";
 import { loginSchema } from "@/schema/loginSchema";
+import { useRouter } from "next/navigation";
+import axios, { AxiosError, AxiosResponse } from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 const FormSchema = loginSchema;
 export default function Login() {
+  const router = useRouter();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -30,21 +34,30 @@ export default function Login() {
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data);
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    const res = await axios
+      .post("/api/login", data)
+      .then((res: AxiosResponse) => {
+        toast.success(res.data.message);
+        router.push("/dashboard");
+      })
+      .catch((err: AxiosError) => {
+        toast.error(err?.response?.data?.message);
+      });
   }
 
   return (
     <div>
+      <Toaster />
       <nav>
         <Nav />
       </nav>
-      <div className="flex flex-col items-center mx-auto w-[456px] mt-[148px] py-12 bg-[#212121] rounded-lg">
+      <div className="flex flex-col items-center mx-auto md:w-[456px] mt-[72px] py-12 bg-[#212121] rounded-lg">
         <h1 className="text-2xl mb-6">Log in</h1>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="w-2/3 space-y-6"
+            className="w-4/5 md:w-2/3 space-y-6"
           >
             <FormField
               control={form.control}

@@ -4,10 +4,8 @@ import Nav from "@/components/Nav";
 const Homepage = () => {
   return (
       <div>
-        <nav>
           <Nav />
           <Hero />
-        </nav>
       </div>
   );
 };

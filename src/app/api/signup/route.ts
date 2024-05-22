@@ -3,7 +3,7 @@ import connect from "@/lib/dbConnect";
 import User from "@/model/user";
 import { signupSchema } from "@/schema/signupSchema";
 import bcryptjs from "bcryptjs";
-import jwt from "jsonwebtoken";
+import { sendEmailVerificationToken } from "@/utils/sendEmailVerificationToken";
 
 connect();
 export async function POST(req: NextRequest) {
@@ -47,19 +47,14 @@ export async function POST(req: NextRequest) {
       email: email,
       password: hashedPassword,
     });
-    await user.save();
+    const savedUser = await user.save();
 
-    const token = jwt.sign(
-      { userId: user._id, name: user.fullname },
-      process.env.SECRET_TOKEN || ""
-    );
+    sendEmailVerificationToken({ email: email, userId: savedUser._id });
 
-    const res = NextResponse.json(
+    return NextResponse.json(
       { message: "User created successfully", success: true },
       { status: 200 }
     );
-    res.cookies.set("token", token);
-    return res;
   } catch (error: any) {
     return NextResponse.json(
       { error: error.message, success: false },
