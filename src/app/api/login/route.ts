@@ -3,7 +3,8 @@ import connect from "@/lib/dbConnect";
 import User from "@/model/user";
 import { loginSchema } from "@/schema/loginSchema";
 import bcryptjs from "bcryptjs";
-import jwt from "jsonwebtoken";
+import jose from "jose";
+import { createJwtToken } from "@/utils/jwtToken";
 
 connect();
 
@@ -47,10 +48,8 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const token = jwt.sign(
-      { userId: user._id, name: user.fullname },
-      process.env.SECRET_TOKEN || ""
-    );
+    const token = await createJwtToken(user._id, user.fullname);
+
     const res = NextResponse.json(
       { message: "Login successful", success: true },
       { status: 200 }

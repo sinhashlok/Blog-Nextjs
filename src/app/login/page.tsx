@@ -39,7 +39,7 @@ export default function Login() {
       .post("/api/login", data)
       .then((res: AxiosResponse) => {
         toast.success(res.data.message);
-        router.push("/dashboard");
+        router.push("/user/dashboard");
       })
       .catch((err: AxiosError) => {
         const data: any = err?.response?.data;
