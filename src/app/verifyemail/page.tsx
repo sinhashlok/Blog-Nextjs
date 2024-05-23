@@ -25,7 +25,6 @@ const VerifyToken = () => {
 
   useEffect(() => {
     const urlToken = searchParams.get("token");
-    console.log(urlToken);
 
     setToken(urlToken || "");
   }, [searchParams]);
