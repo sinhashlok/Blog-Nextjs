@@ -21,11 +21,12 @@ export default async function sendEmailVerificationToken({
     },
   });
 
-  const { data, error } = await resend.emails.send({
-    from: "dev.me@resend.dev",
-    to: email,
-    subject: "Verification Email",
-    html: `<div>
+  await resend.emails
+    .send({
+      from: "dev.me@resend.dev",
+      to: email,
+      subject: "Verification Email",
+      html: `<div>
     <h1>Email Verification</h1>
     <br />
     <p>Click here for <a href="${process.env.DOMAIN}/verifyemail?token=${hashedToken}">email verification</a>
@@ -35,9 +36,6 @@ export default async function sendEmailVerificationToken({
     ${process.env.DOMAIN}/verifyemail?token=${hashedToken}
     </p>
     </div>`,
-  });
-
-  if (error) {
-    console.log("Error: " + error);
-  }
+    })
+    .catch((error) => console.log("Email Error", error));
 }
