@@ -5,6 +5,7 @@ export async function middleware(req: NextRequest) {
   if (req.nextUrl.pathname.startsWith("/user/")) {
     const token = req.cookies?.get("token");
     const verified = await verifyJwtToken(token?.value || "");
+    console.log("VERIFIED", verified);
 
     if (!verified) {
       return NextResponse.redirect(new URL("/login", req.url));
