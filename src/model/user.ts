@@ -8,6 +8,8 @@ export interface userInterface extends Document {
   isVerified: boolean;
   verifyToken: string | undefined;
   verifyTokenExpiry: Date | undefined;
+  myBlogs: [string];
+  bookmarkedBlogs: [string];
 }
 
 const userSchema: Schema<userInterface> = new Schema({
@@ -35,6 +37,14 @@ const userSchema: Schema<userInterface> = new Schema({
   isVerified: {
     type: Boolean,
     default: false,
+  },
+  myBlogs: {
+    type: [String],
+    default: [],
+  },
+  bookmarkedBlogs: {
+    type: [String],
+    default: [],
   },
 });
 

@@ -14,12 +14,12 @@ export async function createJwtToken(userId: any, name: string) {
   return token;
 }
 
-export async function verifyJwtToken(jwt: string) {
+export async function verifyJwtToken(jwt: any) {
   try {
     const secret = new TextEncoder().encode(process.env.SECRET_TOKEN || "");
-    await jose.jwtVerify(jwt, secret);
-    return true;
+    const payload = await jose.jwtVerify(jwt, secret);
+    return payload;
   } catch (error) {
-    return false;
+    return null;
   }
 }

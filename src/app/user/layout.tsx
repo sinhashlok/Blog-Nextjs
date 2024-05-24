@@ -1,4 +1,6 @@
 import NavLoggedIn from "@/components/NavLoggedIn";
+// import {NextUIProvider} from "@nextui-org/react";
+
 
 export default function RootLayout({
   children,
@@ -7,6 +9,7 @@ export default function RootLayout({
 }>) {
   return (
     <div>
+      
       <nav>
         <NavLoggedIn />
       </nav>

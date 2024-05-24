@@ -22,6 +22,8 @@ import { loginSchema } from "@/schema/loginSchema";
 import { useRouter } from "next/navigation";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import { useState } from "react";
+import { Loader2 } from "lucide-react";
 
 const FormSchema = loginSchema;
 export default function Login() {
@@ -33,8 +35,10 @@ export default function Login() {
       password: "",
     },
   });
+  const [btnDisabled, setBtnDisabled] = useState<boolean>(false);
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
+    setBtnDisabled(true);
     const res = await axios
       .post("/api/login", data)
       .then((res: AxiosResponse) => {
@@ -45,6 +49,7 @@ export default function Login() {
         const data: any = err?.response?.data;
         toast.error(data?.message);
       });
+    setBtnDisabled(false);
   }
 
   return (
@@ -94,9 +99,16 @@ export default function Login() {
                 </FormItem>
               )}
             />
-            <Button type="submit" variant="outline" className="w-full">
-              Submit
-            </Button>
+            {btnDisabled ? (
+              <Button disabled className="w-full">
+                <Loader2 className="mr-2 h-4 w- animate-spin" />
+                Please wait
+              </Button>
+            ) : (
+              <Button type="submit" variant="outline" className="w-full">
+                Submit
+              </Button>
+            )}
           </form>
           <div className="mt-6">
             <p>
