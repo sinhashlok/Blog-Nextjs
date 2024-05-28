@@ -18,7 +18,7 @@ interface Blogs {
   createdAt: Date;
 }
 
-export default function BlogsCard({ blogs }: [Blogs]) {
+export default function BlogsCard({ blogs }: any) {
   return (
     <div className="flex flex-row gap-x-32 gap-y-24 flex-wrap">
       {blogs?.map((data: Blogs) => {
@@ -26,15 +26,22 @@ export default function BlogsCard({ blogs }: [Blogs]) {
         const created = date.toDateString();
 
         return (
-          <Card className="min-w-[356px] max-w-[356px] min-h-[250px] max-h-[400px] bg-black text-white" key={data._id}>
-              {data?.coverImgURL && <img
+          <Card
+            className="min-w-[356px] max-w-[356px] min-h-[250px] max-h-[400px] bg-black text-white"
+            key={data._id}
+          >
+            {data?.coverImgURL && (
+              <img
                 src={data?.coverImgURL}
                 alt="coverImg"
                 className="w-[356px] min-h-[250px] max-h-[250px] absolute z-[0] rounded-sm blur-sm opacity-50"
-              />}
+              />
+            )}
             <CardHeader className="relative z-[1]">
               <CardTitle>{data.title}</CardTitle>
-              <CardDescription className="text-white">{data.createdBy}</CardDescription>
+              <CardDescription className="text-white">
+                {data.createdBy}
+              </CardDescription>
             </CardHeader>
             <CardFooter className="relative z-[1] mt-24">
               <p className="ml-auto font-bold">- {created}</p>

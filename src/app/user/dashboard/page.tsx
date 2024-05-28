@@ -24,7 +24,10 @@ const Dashboard = () => {
         console.log(err);
       });
 
-    setAllBlogs(res);
+    if (res) {
+      setAllBlogs(res);
+    }
+
     return res;
   }
   useEffect(() => {
@@ -34,7 +37,7 @@ const Dashboard = () => {
   return (
     <div className="mt-10">
       <h1 className="text-2xl mb-5 text-center">Blogs</h1>
-      <BlogsCard blogs={allBlogs} />
+      {allBlogs && <BlogsCard blogs={allBlogs} />}
     </div>
   );
 };
