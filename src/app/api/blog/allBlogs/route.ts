@@ -9,6 +9,7 @@ export async function GET() {
       { message: "Found all blogs", success: true, blogs: blogs },
       { status: 200 }
     );
+    
   } catch (error: any) {
     return NextResponse.json(
       { error: error.message, success: false },

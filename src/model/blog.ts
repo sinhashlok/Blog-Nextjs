@@ -33,7 +33,7 @@ const blogSchema: Schema<blogInterface> = new Schema({
   createdAt: {
     type: Date,
     required: true,
-    default: Date.now(),
+    default: new Date(),
   },
 });
 

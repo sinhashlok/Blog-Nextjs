@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
       content: content,
       coverImgURL: coverImgURL,
       createdBy: name,
-      createdAt: Date.now(),
+      createdAt: new Date(),
     });
 
     const createdBlog = await blog.save();

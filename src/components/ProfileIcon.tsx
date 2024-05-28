@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { LogOut, Plus, User, Users } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -13,21 +13,22 @@ import {
 import axios, { AxiosError, AxiosResponse } from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export function ProfileIcon() {
   const router = useRouter();
   const handleLogout = async () => {
     const res = await axios
-    .post("/api/logout")
-    .then((res: AxiosResponse) => {
-      toast.success(res.data.message);
-      router.push("/");
-    })
-    .catch((err: AxiosError) => {
-      const data: any = err?.response?.data;
-      toast.error(data?.message);
-    });
-  }
+      .post("/api/logout")
+      .then((res: AxiosResponse) => {
+        toast.success(res.data.message);
+        router.push("/login");
+      })
+      .catch((err: AxiosError) => {
+        const data: any = err?.response?.data;
+        toast.error(data?.message);
+      });
+  };
   return (
     <DropdownMenu>
       <Toaster />
@@ -46,10 +47,12 @@ export function ProfileIcon() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
+            <Link href="/user/myBlogs">
           <DropdownMenuItem>
-            <Users className="mr-2 h-4 w-4" />
-            <span>My Blogs</span>
+              <Users className="mr-2 h-4 w-4" />
+              <span>My Blogs</span>
           </DropdownMenuItem>
+            </Link>
           <DropdownMenuItem>
             <Plus className="mr-2 h-4 w-4" />
             <span>Saved Blogs</span>

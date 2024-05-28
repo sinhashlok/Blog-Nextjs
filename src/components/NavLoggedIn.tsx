@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ProfileIcon } from "./ProfileIcon";
+import AddBlog from "./AddBlog";
 
 export const poppinsB = Poppins({
   weight: "500",
@@ -19,14 +20,15 @@ export const roboto_mono = Ubuntu_Mono({
 const NavLoggedIn = () => {
   return (
     <nav className="py-4 flex flex-row justify-between items-center">
-      <Link href="/">
+      <Link href="/user/dashboard">
         <h1
-          className={`${roboto_mono.className} text-2xl md:text-4xl text-teal-400`}
+          className={`${roboto_mono.className} text-2xl md:text-4xl`}
         >
           blog.me
         </h1>
       </Link>
-      <div className={`flex flex-row ${poppinsB.className}`}>
+      <div className={`flex flex-row items-center ${poppinsB.className}`}>
+        <AddBlog />
         <ProfileIcon />
       </div>
     </nav>

@@ -25,8 +25,8 @@ import { error } from "console";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const FormSchema = signupSchema;
 export default function SignUp() {
+  const FormSchema = signupSchema;
   const router = useRouter();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -60,7 +60,7 @@ export default function SignUp() {
       <nav>
         <Nav />
       </nav>
-      <div className="flex flex-col items-center mx-auto md:w-[456px] mt-[48px] md:mt-[72px] py-12 bg-[#212121] rounded-lg">
+      <div className="flex flex-col items-center mx-auto md:w-[456px] mt-[48px] md:mt-[72px] py-12 bg-white rounded-lg text-black">
         <h1 className="text-2xl mb-6">Sign Up</h1>
         <Form {...form}>
           <form
@@ -77,7 +77,6 @@ export default function SignUp() {
                     <Input
                       placeholder="Enter your full name"
                       {...field}
-                      className="text-black"
                     />
                   </FormControl>
                   <FormMessage />
@@ -94,7 +93,6 @@ export default function SignUp() {
                     <Input
                       placeholder="Enter a username"
                       {...field}
-                      className="text-black"
                     />
                   </FormControl>
                   <FormDescription>
@@ -114,7 +112,6 @@ export default function SignUp() {
                     <Input
                       placeholder="Enter email address"
                       {...field}
-                      className="text-black"
                     />
                   </FormControl>
                   <FormMessage />
@@ -131,7 +128,6 @@ export default function SignUp() {
                     <Input
                       placeholder="Enter password"
                       {...field}
-                      className="text-black"
                     />
                   </FormControl>
                   <FormMessage />

@@ -58,7 +58,7 @@ export default function Login() {
       <nav>
         <Nav />
       </nav>
-      <div className="flex flex-col items-center mx-auto md:w-[456px] mt-[72px] py-12 bg-[#212121] rounded-lg">
+      <div className="flex flex-col items-center mx-auto md:w-[456px] mt-[72px] py-12 bg-white rounded-lg text-black rounded-lg">
         <h1 className="text-2xl mb-6">Log in</h1>
         <Form {...form}>
           <form
@@ -75,7 +75,6 @@ export default function Login() {
                     <Input
                       placeholder="Enter a username"
                       {...field}
-                      className="text-black"
                     />
                   </FormControl>
                   <FormMessage />
@@ -92,7 +91,6 @@ export default function Login() {
                     <Input
                       placeholder="Enter password"
                       {...field}
-                      className="text-black"
                     />
                   </FormControl>
                   <FormMessage />

@@ -1,9 +1,9 @@
 "use client";
+import BlogsCard from "@/components/BlogsCard";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
-import BlogsCard from "@/components/BlogsCard";
 
-const Dashboard = () => {
+const MyBlogs = () => {
   interface Blogs {
     _id: string;
     userId: string;
@@ -13,10 +13,10 @@ const Dashboard = () => {
     createdBy: string;
     createdAt: Date;
   }
-  const [allBlogs, setAllBlogs] = useState<[Blogs]>();
-  async function getAllBlogs() {
+  const [myBlogs, setmyBlogs] = useState<[Blogs]>();
+  async function getMyBlogs() {
     const res = await axios
-      .get("/api/blog/allBlogs")
+      .post("/api/blog/myBlogs")
       .then((res: AxiosResponse) => {
         return res.data.blogs;
       })
@@ -24,19 +24,19 @@ const Dashboard = () => {
         console.log(err);
       });
 
-    setAllBlogs(res);
+    setmyBlogs(res);
     return res;
   }
   useEffect(() => {
-    getAllBlogs();
+    getMyBlogs();
   }, []);
 
   return (
     <div className="mt-10">
-      <h1 className="text-2xl mb-5 text-center">Blogs</h1>
-      <BlogsCard blogs={allBlogs} />
+      <h1 className="text-2xl mb-5">My Blogs</h1>
+      <BlogsCard blogs={myBlogs} />
     </div>
   );
 };
 
-export default Dashboard;
+export default MyBlogs;
