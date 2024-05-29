@@ -37,7 +37,7 @@ const Dashboard = () => {
   return (
     <div className="mt-10">
       <h1 className="text-2xl mb-5 text-center">Blogs</h1>
-      {allBlogs && <BlogsCard blogs={allBlogs} />}
+      <BlogsCard blogs={allBlogs} />
     </div>
   );
 };
