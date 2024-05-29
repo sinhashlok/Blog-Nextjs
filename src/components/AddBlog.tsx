@@ -28,12 +28,12 @@ import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { addBlogSchema } from "@/schema/addBlogSchema";
+import Compressor from "compressorjs";
 
 export default function AddBlog() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const FormSchema = addBlogSchema;
   const router = useRouter();
-  const [postImage, setPostImage] = useState<string | ArrayBuffer | null>(null);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -42,10 +42,13 @@ export default function AddBlog() {
       coverImgURL: null,
     },
   });
+  const [compressedFile, setCompressedFile] = useState<Blob | File>();
+  const [postImage, setPostImage] = useState<string | ArrayBuffer | null>(null);
   const [btnDisabled, setBtnDisabled] = useState<boolean>(false);
+  const MAX_FILE_SIZE = 3 * 1024 * 1024; // 3MB
 
   const convertToBase64 = (
-    file: File
+    file: File | Blob
   ): Promise<string | ArrayBuffer | null> => {
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
@@ -60,8 +63,23 @@ export default function AddBlog() {
   };
 
   const handleFileUpload = async (e: any) => {
-    const file = e.target.files[0];
-    console.log(file);
+    let file = e.target.files[0];
+    if (file.size > MAX_FILE_SIZE) {
+      toast.error("Image Size Limit: 3mb");
+      return;
+    }
+    const compressedImg = await new Promise((resolve, reject) => {
+      new Compressor(file, {
+        quality: 0.6,
+        success: (res) => {
+          resolve(res);
+        },
+        error(err) {
+          reject(err);
+        },
+      });
+    });
+    file = await compressedImg;
 
     const base64: string | ArrayBuffer | null = await convertToBase64(file);
     setPostImage(base64);
