@@ -58,7 +58,7 @@ export default function Login() {
       <nav>
         <Nav />
       </nav>
-      <div className="flex flex-col items-center mx-auto md:w-[456px] mt-[72px] py-12 bg-white rounded-lg text-black rounded-lg">
+      <div className="flex flex-col items-center mx-auto md:w-[456px] mt-[72px] py-12 border-2 border-black rounded-lg">
         <h1 className="text-2xl mb-6">Log in</h1>
         <Form {...form}>
           <form

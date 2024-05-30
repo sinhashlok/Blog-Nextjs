@@ -29,6 +29,7 @@ import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { addBlogSchema } from "@/schema/addBlogSchema";
 import Compressor from "compressorjs";
+import { revalidatePath } from "next/cache";
 
 export default function AddBlog() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -42,7 +43,6 @@ export default function AddBlog() {
       coverImgURL: null,
     },
   });
-  const [compressedFile, setCompressedFile] = useState<Blob | File>();
   const [postImage, setPostImage] = useState<string | ArrayBuffer | null>(null);
   const [btnDisabled, setBtnDisabled] = useState<boolean>(false);
   const MAX_FILE_SIZE = 3 * 1024 * 1024; // 3MB
@@ -87,18 +87,22 @@ export default function AddBlog() {
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     setBtnDisabled(true);
-    console.log(data);
     if (postImage) {
       data.coverImgURL = postImage;
     }
+    console.log(data);
 
     const res = await axios
       .post("/api/blog/addBlog", data)
       .then((res: AxiosResponse) => {
+        console.log(res);
+        
         toast.success(res.data.message);
-        router.refresh();
+        router.push("/user/dashboard");
       })
       .catch((err: AxiosError) => {
+        console.log(err);
+        
         const data: any = err?.response?.data;
         toast.error(data?.message);
       });
@@ -109,7 +113,7 @@ export default function AddBlog() {
     <div className="mr-4">
       <Button
         onPress={onOpen}
-        className="hover:bg-white hover:text-black p-2 rounded-sm cursor-pointer text-sm"
+        className="hover:underline p-2cursor-pointer text-sm"
       >
         Add Blog
       </Button>
@@ -200,14 +204,6 @@ export default function AddBlog() {
                       </ButtonShad>
                     )}
                   </form>
-                  <div className="mt-6">
-                    <p>
-                      Already have an account?{" "}
-                      <Link href="/login" className="hover:underline">
-                        Log in
-                      </Link>
-                    </p>
-                  </div>
                 </Form>
               </ModalBody>
             </>

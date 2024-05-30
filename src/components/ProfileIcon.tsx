@@ -40,23 +40,27 @@ export function ProfileIcon() {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <User className="mr-2 h-4 w-4" />
-            <span>Profile</span>
-          </DropdownMenuItem>
+          <Link href="/user/profile">
+            <DropdownMenuItem>
+              <User className="mr-2 h-4 w-4" />
+              <span>Profile</span>
+            </DropdownMenuItem>
+          </Link>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-            <Link href="/user/myBlogs">
-          <DropdownMenuItem>
+          <Link href="/user/myBlogs">
+            <DropdownMenuItem>
               <Users className="mr-2 h-4 w-4" />
               <span>My Blogs</span>
-          </DropdownMenuItem>
-            </Link>
-          <DropdownMenuItem>
-            <Plus className="mr-2 h-4 w-4" />
-            <span>Saved Blogs</span>
-          </DropdownMenuItem>
+            </DropdownMenuItem>
+          </Link>
+          <Link href="/user/bookmark">
+            <DropdownMenuItem>
+              <Plus className="mr-2 h-4 w-4" />
+              <span>Saved Blogs</span>
+            </DropdownMenuItem>
+          </Link>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleLogout}>

@@ -46,7 +46,12 @@ const Hero: React.FC = () => {
         </Link>
       </div>
       <div className="mt-96 w-[556px] mx-auto">
-        <Card className="bg-white p-7">
+        <Card
+          className="bg-white p-4 text-white"
+          style={{
+            background: "linear-gradient(90deg, #3F2B96 0%, #A8C0FF 100%)",
+          }}
+        >
           <CardHeader>
             <CardTitle className="leading-normal">
               Starting my blogging journey was a challenge. The first posts were
@@ -85,9 +90,14 @@ const Hero: React.FC = () => {
           the <span className="underline">author</span>
         </h1>
         <div className="mx-auto">
-          <Card className="p-7 leading-normal">
+          <Card
+            className="p-4 leading-normal text-white"
+            style={{
+              background: "linear-gradient(90deg, #3F2B96 0%, #A8C0FF 100%)",
+            }}
+          >
             <CardHeader>
-              <CardDescription>Hi, I am</CardDescription>
+              <CardDescription className="text-white">Hi, I am</CardDescription>
               <CardTitle>Shlok Sinha 👋</CardTitle>
             </CardHeader>
             <CardContent>

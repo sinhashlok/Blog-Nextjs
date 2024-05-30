@@ -5,7 +5,7 @@ import { verifyJwtToken } from "@/utils/jwtToken";
 import { NextRequest, NextResponse } from "next/server";
 
 async function linkBlogToUser(userId: string, blogId: string) {
-  try {
+  try {    
     await User.findByIdAndUpdate(userId, {
       $setOnInsert: {
         myBlog: blogId,
@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
       userId: userId,
       title: title,
       content: content,
-      coverImgURL: coverImgURL,
+      coverImgURL: coverImgURL || "",
       createdBy: name,
       createdAt: new Date(),
     });

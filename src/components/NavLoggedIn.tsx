@@ -21,14 +21,12 @@ const NavLoggedIn = () => {
   return (
     <nav className="py-4 flex flex-row justify-between items-center">
       <Link href="/user/dashboard">
-        <h1
-          className={`${roboto_mono.className} text-2xl md:text-4xl`}
-        >
+        <h1 className={`${roboto_mono.className} text-2xl md:text-4xl`}>
           blog.me
         </h1>
       </Link>
       <div className={`flex flex-row items-center ${poppinsB.className}`}>
-        <AddBlog />
+          <AddBlog />
         <ProfileIcon />
       </div>
     </nav>

@@ -27,7 +27,7 @@ const Nav = () => {
       </Link>
       <div className={`flex flex-row ${poppinsB.className}`}>
         <Link href="/login">
-          <Button variant="ghostModi" className="mr-2">
+          <Button variant="ghostModi" className="mr-2" >
             Log in
           </Button>
         </Link>

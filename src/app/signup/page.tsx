@@ -60,7 +60,7 @@ export default function SignUp() {
       <nav>
         <Nav />
       </nav>
-      <div className="flex flex-col items-center mx-auto md:w-[456px] mt-[48px] md:mt-[72px] py-12 bg-white rounded-lg text-black">
+      <div className="flex flex-col items-center mx-auto md:w-[456px] mt-[48px] md:mt-[72px] py-12 border-2 border-black rounded-lg">
         <h1 className="text-2xl mb-6">Sign Up</h1>
         <Form {...form}>
           <form

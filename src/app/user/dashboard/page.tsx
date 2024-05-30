@@ -1,5 +1,4 @@
 "use client";
-import axios, { AxiosError, AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import BlogsCard from "@/components/BlogsCard";
 
@@ -15,13 +14,16 @@ const Dashboard = () => {
   }
   const [allBlogs, setAllBlogs] = useState<[Blogs]>();
   async function getAllBlogs() {
-    const res = await axios
-      .get("/api/blog/allBlogs")
-      .then((res: AxiosResponse) => {
-        return res.data.blogs;
+    const res = await fetch("/api/blog/allBlogs", {
+      cache: "no-cache",
+      next: { revalidate: 10 },
+    })
+      .then(async (res: any) => {
+        const data = await res.json();
+        return data.blogs;
       })
-      .catch((err: AxiosError) => {
-        console.log(err);
+      .catch((error: any) => {
+        console.log(error);
       });
 
     if (res) {
@@ -35,7 +37,7 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="mt-10">
+    <div className="mt-4">
       <h1 className="text-2xl mb-5 text-center">Blogs</h1>
       <BlogsCard blogs={allBlogs} />
     </div>

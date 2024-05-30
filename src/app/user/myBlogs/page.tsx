@@ -15,13 +15,17 @@ const MyBlogs = () => {
   }
   const [myBlogs, setmyBlogs] = useState<[Blogs]>();
   async function getMyBlogs() {
-    const res = await axios
-      .post("/api/blog/myBlogs")
-      .then((res: AxiosResponse) => {
-        return res.data.blogs;
+    const res = await fetch("/api/blog/myBlogs", {
+      cache: "force-cache",
+      next: { revalidate: 60 },
+      method: "POST",
+    })
+      .then(async (res: any) => {
+        const data = await res.json();
+        return data.blogs;
       })
-      .catch((err: AxiosError) => {
-        console.log(err);
+      .catch((error: any) => {
+        console.log(error);
       });
 
     setmyBlogs(res);
