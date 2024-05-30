@@ -45,7 +45,8 @@ const Hero: React.FC = () => {
           <Button variant="outline">Get Started</Button>
         </Link>
       </div>
-      <div className="mt-96 w-[556px] mx-auto">
+      <div className="mt-96 mb-40 w-[556px] mx-auto">
+        <h1 className="text-7xl italic text-center mb-10">Motivation</h1>
         <Card
           className="bg-white p-4 text-white"
           style={{

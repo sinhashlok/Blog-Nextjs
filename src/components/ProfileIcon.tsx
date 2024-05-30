@@ -47,18 +47,11 @@ export function ProfileIcon() {
             </DropdownMenuItem>
           </Link>
         </DropdownMenuGroup>
-        <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <Link href="/user/myBlogs">
             <DropdownMenuItem>
               <Users className="mr-2 h-4 w-4" />
               <span>My Blogs</span>
-            </DropdownMenuItem>
-          </Link>
-          <Link href="/user/bookmark">
-            <DropdownMenuItem>
-              <Plus className="mr-2 h-4 w-4" />
-              <span>Saved Blogs</span>
             </DropdownMenuItem>
           </Link>
         </DropdownMenuGroup>

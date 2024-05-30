@@ -1,5 +1,5 @@
 import { z } from "zod";
 
-export const getBlogSchema = z.object({
+export const blogIdSchema = z.object({
   blogId: z.string(),
 });

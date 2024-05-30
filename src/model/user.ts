@@ -9,7 +9,6 @@ export interface userInterface extends Document {
   verifyToken: string | undefined;
   verifyTokenExpiry: Date | undefined;
   myBlogs: [string];
-  bookmarkedBlogs: [string];
 }
 
 const userSchema: Schema<userInterface> = new Schema({
@@ -39,10 +38,6 @@ const userSchema: Schema<userInterface> = new Schema({
     default: false,
   },
   myBlogs: {
-    type: [String],
-    default: [],
-  },
-  bookmarkedBlogs: {
     type: [String],
     default: [],
   },
