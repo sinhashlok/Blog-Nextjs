@@ -1,32 +1,30 @@
+import MyBlogs from "@/app/user/myBlogs/page";
 import Blog from "@/model/blog";
 import User from "@/model/user";
 import { verifyJwtToken } from "@/utils/jwtToken";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest) {
+export async function POST(req: NextRequest) {
   try {
     const token = req.cookies?.get("token")?.value;
     const payload = await verifyJwtToken(token);
     const userId = payload?.payload?.userId;
 
-    const user = await User.findById(userId);
-    const blogId = user?.myBlogs;
-
-    if (!blogId) {
-      return NextResponse.json(
-        { message: "No blogs", success: true, blog: null },
-        { status: 200 }
-      );
+    const user = await User.findByIdAndDelete(userId);
+    const blogs: string[] = user?.myBlogs || [];
+    if (blogs?.length != 0) {
+      blogs.forEach(async (id) => {
+        console.log(id);
+        await Blog.findByIdAndDelete(id);
+      });
     }
 
-    const blogs = await Promise.all(
-      blogId.map(async (id) => {
-        return await Blog.findById(id);
-      })
-    );
-
     return NextResponse.json(
-      { message: "Found my blogs", success: true, blogs: blogs },
+      {
+        message: "User & Blogs deleted",
+        success: true,
+        user: user,
+      },
       { status: 200 }
     );
   } catch (error: any) {

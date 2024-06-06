@@ -36,10 +36,12 @@ export async function POST(req: NextRequest) {
     await deleteBlog(userId, blogId);
 
     return NextResponse.json(
-      { messasge: `Deleted Blog: ${blog?.title}`, success: true },
+      { message: "Deleted Blog: " + blog?.title, success: true },
       { status: 200 }
     );
   } catch (error: any) {
+    console.log(error);
+
     return NextResponse.json(
       { error: error.message, success: false },
       { status: 500 }

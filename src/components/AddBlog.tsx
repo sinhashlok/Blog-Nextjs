@@ -32,7 +32,7 @@ import Compressor from "compressorjs";
 import { revalidatePath } from "next/cache";
 
 export default function AddBlog() {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const FormSchema = addBlogSchema;
   const router = useRouter();
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -43,6 +43,7 @@ export default function AddBlog() {
       coverImgURL: null,
     },
   });
+  const { reset } = useForm();
   const [postImage, setPostImage] = useState<string | ArrayBuffer | null>(null);
   const [btnDisabled, setBtnDisabled] = useState<boolean>(false);
   const MAX_FILE_SIZE = 3 * 1024 * 1024; // 3MB
@@ -90,19 +91,18 @@ export default function AddBlog() {
     if (postImage) {
       data.coverImgURL = postImage;
     }
-    console.log(data);
 
     const res = await axios
       .post("/api/blog/addBlog", data)
       .then((res: AxiosResponse) => {
-        console.log(res);
-        
         toast.success(res.data.message);
-        router.push("/user/dashboard");
+        reset();
+        onClose();
+        router.refresh();
       })
       .catch((err: AxiosError) => {
         console.log(err);
-        
+
         const data: any = err?.response?.data;
         toast.error(data?.message);
       });

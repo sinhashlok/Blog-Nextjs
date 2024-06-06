@@ -3,7 +3,6 @@ import connect from "@/lib/dbConnect";
 import User from "@/model/user";
 import { loginSchema } from "@/schema/loginSchema";
 import bcryptjs from "bcryptjs";
-import jose from "jose";
 import { createJwtToken } from "@/utils/jwtToken";
 
 connect();

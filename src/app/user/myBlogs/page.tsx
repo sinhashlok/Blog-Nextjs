@@ -1,9 +1,23 @@
-"use client";
 import BlogsCard from "@/components/BlogsCard";
-import axios, { AxiosError, AxiosResponse } from "axios";
-import { useEffect, useState } from "react";
+import { cookies } from "next/headers";
 
-const MyBlogs = () => {
+async function getMyBlogs() {
+  const res = await fetch(`${process.env.DOMAIN}/api/blog/myBlogs`, {
+    cache: "no-store",
+    headers: { Cookie: cookies().toString() },
+  })
+    .then(async (res: any) => {
+      const data = await res.json();
+      return data.blogs;
+    })
+    .catch((error: any) => {
+      console.log(error);
+    });
+
+  return res;
+}
+
+export default async function MyBlogs() {
   interface Blogs {
     _id: string;
     userId: string;
@@ -13,27 +27,7 @@ const MyBlogs = () => {
     createdBy: string;
     createdAt: Date;
   }
-  const [myBlogs, setmyBlogs] = useState<[Blogs]>();
-  async function getMyBlogs() {
-    const res = await fetch("/api/blog/myBlogs", {
-      cache: "force-cache",
-      next: { revalidate: 60 },
-      method: "POST",
-    })
-      .then(async (res: any) => {
-        const data = await res.json();
-        return data.blogs;
-      })
-      .catch((error: any) => {
-        console.log(error);
-      });
-
-    setmyBlogs(res);
-    return res;
-  }
-  useEffect(() => {
-    getMyBlogs();
-  }, []);
+  const myBlogs: Blogs[] = await getMyBlogs();
 
   return (
     <div className="mt-10">
@@ -41,6 +35,4 @@ const MyBlogs = () => {
       <BlogsCard blogs={myBlogs} />
     </div>
   );
-};
-
-export default MyBlogs;
+}
