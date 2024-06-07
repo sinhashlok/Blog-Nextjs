@@ -9,7 +9,6 @@ async function getMyBlogs() {
   })
     .then(async (res: any) => {
       const data = await res.json();
-      console.log(data);
       return data.blogs;
     })
     .catch((error: any) => {
