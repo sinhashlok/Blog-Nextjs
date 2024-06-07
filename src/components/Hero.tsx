@@ -45,8 +45,8 @@ const Hero: React.FC = () => {
           <Button variant="outline">Get Started</Button>
         </Link>
       </div>
-      <div className="mt-96 mb-40 w-[556px] mx-auto">
-        <h1 className="text-7xl italic text-center mb-10">Motivation</h1>
+      <div className="mt-96 mb-40 w-[90%] md:w-[60%] mx-auto">
+        <h1 className="text-3xl md:text-7xl italic text-center mb-10">Motivation</h1>
         <Card
           className="bg-white p-4 text-white"
           style={{
@@ -67,32 +67,32 @@ const Hero: React.FC = () => {
       </div>
       <div className="mt-40 mb-40 w-[60%] mx-auto">
         <h1 className="text-3xl text-center mb-10">
-          <span className="text-7xl italic">Rules</span>
+          <span className="text-5xl md:text-7xl italic">Rules</span>
           <br />
           for a <span className="underline">great blog</span>
         </h1>
         {data?.map((item: any) => (
           <Accordion type="single" key={item.id} collapsible>
             <AccordionItem value="item-1" className="my-2">
-              <AccordionTrigger className="text-xl">
+              <AccordionTrigger className="text-left text-sm md:text-xl">
                 {item.title}
               </AccordionTrigger>
-              <AccordionContent className="text-lg w-[90%]">
+              <AccordionContent className="text-sm md:text-lg w-[90%]">
                 {item.description}
               </AccordionContent>
             </AccordionItem>
           </Accordion>
         ))}
       </div>
-      <div className="mt-40 mb-40 w-[60%] mx-auto">
+      <div className="mt-40 mb-40 w-[90%] md:w-[60%] mx-auto">
         <h1 className="text-3xl text-center mb-10">
-          <span className="text-7xl italic">About</span>
+          <span className="text-5xl md:text-7xl italic">About</span>
           <br />
           the <span className="underline">author</span>
         </h1>
         <div className="mx-auto">
           <Card
-            className="p-4 leading-normal text-white"
+            className="p-1 md:p-4 leading-normal text-white"
             style={{
               background: "linear-gradient(90deg, #3F2B96 0%, #A8C0FF 100%)",
             }}

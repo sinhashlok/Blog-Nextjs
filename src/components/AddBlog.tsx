@@ -26,10 +26,8 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
-import Link from "next/link";
 import { addBlogSchema } from "@/schema/addBlogSchema";
 import Compressor from "compressorjs";
-import { revalidatePath } from "next/cache";
 
 export default function AddBlog() {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
@@ -113,8 +111,8 @@ export default function AddBlog() {
     <div className="mr-4">
       <Toaster />
       <Button
-        onPress={onOpen}
-        className="hover:underline p-2cursor-pointer text-sm"
+        onClick={onOpen}
+        className="hover:underline py-2 cursor-pointer text-sm"
       >
         Add Blog
       </Button>
@@ -137,7 +135,7 @@ export default function AddBlog() {
                 <Form {...form}>
                   <form
                     onSubmit={form.handleSubmit(onSubmit)}
-                    className="w- md:w-2/3 space-y-6"
+                    className="w-full md:w-2/3 space-y-6"
                   >
                     <FormField
                       control={form.control}

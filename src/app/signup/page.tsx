@@ -60,12 +60,12 @@ export default function SignUp() {
       <nav>
         <Nav />
       </nav>
-      <div className="flex flex-col items-center mx-auto md:w-[456px] mt-[48px] md:mt-[72px] py-12 border-2 border-black rounded-lg">
+      <div className="flex flex-col items-center mx-5 md:mx-auto md:w-[456px] mt-[48px] md:mt-[72px] py-12 border-2 border-black rounded-lg">
         <h1 className="text-2xl mb-6">Sign Up</h1>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="w- md:w-2/3 space-y-6"
+            className="w-[85%] md:w-2/3 space-y-6"
           >
             <FormField
               control={form.control}

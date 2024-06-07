@@ -8,14 +8,12 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { signupSchema } from "@/schema/signupSchema";
 import Nav from "@/components/Nav";
 import Link from "next/link";
 import { loginSchema } from "@/schema/loginSchema";
@@ -58,12 +56,12 @@ export default function Login() {
       <nav>
         <Nav />
       </nav>
-      <div className="flex flex-col items-center mx-auto md:w-[456px] mt-[72px] py-12 border-2 border-black rounded-lg">
+      <div className="flex flex-col items-center mx-5 md:mx-auto md:w-[456px] mt-[72px] py-12 border-2 border-black rounded-lg">
         <h1 className="text-2xl mb-6">Log in</h1>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="w-4/5 md:w-2/3 space-y-6"
+            className="w-[85%] md:w-2/3 space-y-6"
           >
             <FormField
               control={form.control}

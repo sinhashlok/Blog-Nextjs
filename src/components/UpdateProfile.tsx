@@ -28,7 +28,7 @@ const UpdateProfile = ({ user }: any) => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      fullname: user?.fullname || "", 
+      fullname: user?.fullname || "",
       username: user?.username || "",
       password: "",
     },
@@ -56,15 +56,15 @@ const UpdateProfile = ({ user }: any) => {
       const res = await axios
         .post("/api/user/updateUser", data)
         .then((res: AxiosResponse) => {
-          toast.success(res.data.message, {duration: 6000});
+          toast.success(res.data.message, { duration: 6000 });
           router.refresh();
         })
         .catch((err: AxiosError) => {
           const data: any = err?.response?.data;
-          toast.error(data?.message, {duration: 6000});
+          toast.error(data?.message, { duration: 6000 });
         });
     } else {
-      toast.error("No Valid updates", {duration: 6000});
+      toast.error("No Valid updates", { duration: 6000 });
     }
     setBtnDisabled(false);
   }
@@ -77,7 +77,7 @@ const UpdateProfile = ({ user }: any) => {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="w-1/3 mx-auto space-y-6"
+            className="w-[85%] md:w-1/3 mx-auto space-y-2 md:space-y-6"
           >
             <FormField
               control={form.control}

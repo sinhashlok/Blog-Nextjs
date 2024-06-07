@@ -49,7 +49,7 @@ export default function BlogsCard({ blogs }: any) {
       });
   };
   return (
-    <div className="flex flex-row gap-x-12 gap-y-12 flex-wrap">
+    <div className="flex flex-col items-center md:flex-row gap-x-12 gap-y-12 flex-wrap">
       <Toaster />
       {blogs?.map((data: Blogs) => {
         const date = new Date(data.createdAt);

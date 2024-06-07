@@ -1,7 +1,9 @@
 const loading = () => {
   return (
-    <div>loading</div>
-  )
-}
+    <div className="text-center items-center justify-center">
+      Loading
+    </div>
+  );
+};
 
-export default loading
+export default loading;
