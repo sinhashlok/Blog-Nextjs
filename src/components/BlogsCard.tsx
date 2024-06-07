@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "./ui/button";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { AxiosResponse } from "axios";
 
 interface Blogs {
@@ -39,17 +39,18 @@ export default function BlogsCard({ blogs }: any) {
     })
       .then(async (res) => {
         const data = await res.json();
-        toast.success(data.message);
+        toast.success(data.message, {duration: 6000});
         router.refresh();
       })
       .catch((error) => {
         console.log(error);
         const data: any = error?.response?.data;
-        toast.error(data?.message);
+        toast.error(data?.message, {duration: 6000});
       });
   };
   return (
     <div className="flex flex-row gap-x-12 gap-y-12 flex-wrap">
+      <Toaster />
       {blogs?.map((data: Blogs) => {
         const date = new Date(data.createdAt);
         const created = date.toDateString();

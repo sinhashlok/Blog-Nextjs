@@ -17,7 +17,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { updateUserSchema } from "@/schema/updateUserSchema";
@@ -56,21 +56,22 @@ const UpdateProfile = ({ user }: any) => {
       const res = await axios
         .post("/api/user/updateUser", data)
         .then((res: AxiosResponse) => {
-          toast.success(res.data.message);
+          toast.success(res.data.message, {duration: 6000});
           router.refresh();
         })
         .catch((err: AxiosError) => {
           const data: any = err?.response?.data;
-          toast.error(data?.message);
+          toast.error(data?.message, {duration: 6000});
         });
     } else {
-      toast.error("No Valid updates");
+      toast.error("No Valid updates", {duration: 6000});
     }
     setBtnDisabled(false);
   }
 
   return (
     <div>
+      <Toaster />
       <h1 className="text-center text-lg underline">Update Profile</h1>
       <div>
         <Form {...form}>

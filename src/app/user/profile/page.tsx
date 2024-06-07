@@ -1,14 +1,13 @@
 import { cookies } from "next/headers";
-import MyBlogs from "../myBlogs/page";
 import UpdateProfile from "@/components/UpdateProfile";
-import { Button } from "@/components/ui/button";
 import DeleteAccount from "@/components/DeleteAccount";
 
 async function getUser() {
+  const cookie = cookies().toString();
   try {
     const res = await fetch(`${process.env.DOMAIN}/api/user/getUser`, {
-      cache: "no-store",
-      headers: { Cookie: cookies().toString() },
+      next: { revalidate: 0 },
+      headers: { Cookie: cookie },
     });
     const data = await res.json();
     return data.user;
@@ -32,9 +31,9 @@ export default async function Profile() {
   return (
     <div className="mt-5 flex flex-col items-center">
       <div className="text-lg text-center">
-        Hi, <span className="text-2xl font-black">{user.fullname}</span>
+        Hi, <span className="text-2xl font-black">{user?.fullname}</span>
         <br />
-        You have {user.myBlogs.length} blogs
+        You have {user?.myBlogs?.length} blogs
       </div>
       <div className="mt-14 w-full">
         <UpdateProfile user={user} />

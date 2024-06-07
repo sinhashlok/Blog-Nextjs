@@ -1,9 +1,8 @@
 import BlogsCard from "@/components/BlogsCard";
-import axios from "axios";
 
 async function getAllBlogs() {
   const res = await fetch(`${process.env.DOMAIN}/api/blog/allBlogs`, {
-    cache: "no-store",
+   next: { revalidate: 0 }
   })
     .then(async (res: any) => {
       const data = await res.json();

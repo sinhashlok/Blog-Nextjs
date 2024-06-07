@@ -23,7 +23,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useState } from "react";
 import axios, { AxiosError, AxiosResponse } from "axios";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
@@ -66,7 +66,7 @@ export default function AddBlog() {
   const handleFileUpload = async (e: any) => {
     let file = e.target.files[0];
     if (file.size > MAX_FILE_SIZE) {
-      toast.error("Image Size Limit: 3mb");
+      toast.error("Image Size Limit: 3mb", {duration: 6000});
       return;
     }
     const compressedImg = await new Promise((resolve, reject) => {
@@ -95,7 +95,7 @@ export default function AddBlog() {
     const res = await axios
       .post("/api/blog/addBlog", data)
       .then((res: AxiosResponse) => {
-        toast.success(res.data.message);
+        toast.success(res.data.message, {duration: 6000});
         reset();
         onClose();
         router.refresh();
@@ -104,13 +104,14 @@ export default function AddBlog() {
         console.log(err);
 
         const data: any = err?.response?.data;
-        toast.error(data?.message);
+        toast.error(data?.message, {duration: 6000});
       });
     setBtnDisabled(false);
   }
 
   return (
     <div className="mr-4">
+      <Toaster />
       <Button
         onPress={onOpen}
         className="hover:underline p-2cursor-pointer text-sm"

@@ -44,12 +44,12 @@ export default function SignUp() {
     const res = await axios
       .post("/api/signup", data)
       .then((res: AxiosResponse) => {
-        toast.success(res.data.message + "\nVerify your email.");
+        toast.success(res.data.message + "\nVerify your email.", {duration: 6000});
         router.push("/login");
       })
       .catch((err: AxiosError) => {
         const data: any = err?.response?.data;
-        toast.error(data?.message);
+        toast.error(data?.message), {duration: 6000};
       });
     setBtnDisabled(false);
   }

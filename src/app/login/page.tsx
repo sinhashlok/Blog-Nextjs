@@ -42,12 +42,12 @@ export default function Login() {
     const res = await axios
       .post("/api/login", data)
       .then((res: AxiosResponse) => {
-        toast.success(res.data.message);
+        toast.success(res.data.message, {duration: 6000});
         router.push("/user/dashboard");
       })
       .catch((err: AxiosError) => {
         const data: any = err?.response?.data;
-        toast.error(data?.message);
+        toast.error(data?.message, {duration: 6000});
       });
     setBtnDisabled(false);
   }

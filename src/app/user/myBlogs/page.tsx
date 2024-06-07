@@ -2,9 +2,10 @@ import BlogsCard from "@/components/BlogsCard";
 import { cookies } from "next/headers";
 
 async function getMyBlogs() {
+  const cookie = cookies().toString();
   const res = await fetch(`${process.env.DOMAIN}/api/blog/myBlogs`, {
-    cache: "no-store",
-    headers: { Cookie: cookies().toString() },
+    next: { revalidate: 0 },
+    headers: { Cookie: cookie },
   })
     .then(async (res: any) => {
       const data = await res.json();
