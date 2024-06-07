@@ -10,6 +10,8 @@ async function getUser() {
       headers: { Cookie: cookie },
     });
     const data = await res.json();
+    console.log(data);
+
     return data.user;
   } catch (error: any) {
     console.log(error);
