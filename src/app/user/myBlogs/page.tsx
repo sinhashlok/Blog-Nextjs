@@ -3,16 +3,13 @@ import { cookies } from "next/headers";
 
 async function getMyBlogs() {
   const cookie = cookies().toString();
-  console.log("my", cookie);
-  
   const res = await fetch(`${process.env.DOMAIN}/api/blog/myBlogs`, {
     next: { revalidate: 0 },
     headers: { Cookie: cookie },
   })
     .then(async (res: any) => {
       const data = await res.json();
-      console.log("my", data);
-      
+
       return data.blogs;
     })
     .catch((error: any) => {
@@ -33,8 +30,6 @@ export default async function MyBlogs() {
     createdAt: Date;
   }
   const myBlogs: Blogs[] = await getMyBlogs();
-  console.log("my", myBlogs);
-  
 
   return (
     <div className="mt-10">

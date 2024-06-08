@@ -9,6 +9,7 @@ export async function GET(req: NextRequest) {
     const userId = payload?.payload?.userId;
 
     const blogs = await Blog.find({ userId: userId });
+    console.log("my", blogs);
 
     return NextResponse.json(
       { message: "Found my blogs", success: true, blogs: blogs },
