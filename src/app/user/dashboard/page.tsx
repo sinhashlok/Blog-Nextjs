@@ -11,9 +11,7 @@ async function getAllBlogs() {
     .then(async (res: any) => {
       const data = await res.json();
       console.log(`${process.env.DOMAIN}/api/blog/allBlogs`);
-
       console.log("all", data);
-
       return data.blogs;
     })
     .catch((error: any) => {
@@ -34,7 +32,6 @@ export default async function Dashboard() {
     createdAt: Date;
   }
   const allBlogs: Blogs[] = await getAllBlogs();
-  console.log("all", allBlogs);
 
   return (
     <div className="mt-4">
