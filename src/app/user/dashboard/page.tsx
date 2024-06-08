@@ -3,8 +3,8 @@ import { cookies } from "next/headers";
 
 async function getAllBlogs() {
   const cookie = cookies().toString();
-
   const res = await fetch(`${process.env.DOMAIN}/api/blog/allBlogs`, {
+    cache: "no-store",
     next: { revalidate: 0 },
     headers: { Cookie: cookie },
   })
