@@ -9,7 +9,8 @@ async function getMyBlogs() {
   })
     .then(async (res: any) => {
       const data = await res.json();
-
+      console.log(`${process.env.DOMAIN}/api/blog/myBlogs`);
+      
       return data.blogs;
     })
     .catch((error: any) => {
