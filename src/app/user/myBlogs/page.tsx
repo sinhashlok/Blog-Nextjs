@@ -33,7 +33,7 @@ export default async function MyBlogs() {
     createdAt: Date;
   }
   const myBlogs: Blogs[] = await getMyBlogs();
-  console.log("my", blogs);
+  console.log("my", myBlogs);
   
 
   return (
