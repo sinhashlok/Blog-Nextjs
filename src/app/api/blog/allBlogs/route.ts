@@ -4,7 +4,6 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(req: NextRequest) {
   try {
     const blogs = await Blog.find({});
-    console.log("all", blogs);
 
     return NextResponse.json(
       { message: "Found all blogs", success: true, blogs: blogs },

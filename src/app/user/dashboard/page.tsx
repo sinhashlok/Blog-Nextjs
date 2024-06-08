@@ -4,20 +4,16 @@ import { cookies } from "next/headers";
 async function getAllBlogs() {
   const cookie = cookies().toString();
   const res = await fetch(`${process.env.DOMAIN}/api/blog/allBlogs`, {
-    cache: "no-store",
     next: { revalidate: 0 },
     headers: { Cookie: cookie },
   })
-    .then(async (res: any) => {
+    .then(async (res) => {
       const data = await res.json();
-      console.log(`${process.env.DOMAIN}/api/blog/allBlogs`);
-      console.log("all", data);
       return data.blogs;
     })
-    .catch((error: any) => {
-      console.log(error);
+    .catch((err) => {
+      console.log(err);
     });
-
   return res;
 }
 
