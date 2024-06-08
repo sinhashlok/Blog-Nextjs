@@ -3,12 +3,16 @@ import { cookies } from "next/headers";
 
 async function getAllBlogs() {
   const cookie = cookies().toString();
+  console.log("all", cookie);
+  
   const res = await fetch(`${process.env.DOMAIN}/api/blog/allBlogs`, {
    next: { revalidate: 0 },
    headers: { Cookie: cookie },
   })
     .then(async (res: any) => {
       const data = await res.json();
+      console.log("all", data);
+      
       return data.blogs;
     })
     .catch((error: any) => {
@@ -29,6 +33,8 @@ export default async function Dashboard() {
     createdAt: Date;
   }
   const allBlogs: Blogs[] = await getAllBlogs();
+  console.log("all", allBlogs);
+  
 
   return (
     <div className="mt-4">
