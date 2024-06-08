@@ -33,8 +33,6 @@ export default async function Profile() {
     <div className="mt-5 flex flex-col items-center">
       <div className="text-lg text-center">
         Hi, <span className="text-2xl font-black">{user?.fullname}</span>
-        <br />
-        You have {user?.myBlogs?.length} blogs
       </div>
       <div className="mt-14 w-full">
         <UpdateProfile user={user} />

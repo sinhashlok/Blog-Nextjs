@@ -11,13 +11,7 @@ export async function POST(req: NextRequest) {
     const userId = payload?.payload?.userId;
 
     const user = await User.findByIdAndDelete(userId);
-    const blogs: string[] = user?.myBlogs || [];
-    if (blogs?.length != 0) {
-      blogs.forEach(async (id) => {
-        console.log(id);
-        await Blog.findByIdAndDelete(id);
-      });
-    }
+    await Blog.deleteMany({ userId: userId });
 
     return NextResponse.json(
       {

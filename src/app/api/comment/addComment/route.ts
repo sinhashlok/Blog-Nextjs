@@ -1,17 +1,18 @@
-import Blog from "@/model/blog";
-import User from "@/model/user";
-import { addBlogSchema } from "@/schema/addBlogSchema";
+import Comment from "@/model/comment";
+import { addCommentSchema } from "@/schema/addCommentSchema";
 import { verifyJwtToken } from "@/utils/jwtToken";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const isValidBlogData = addBlogSchema.safeParse(body);
+    console.log(body);
 
-    if (!isValidBlogData) {
+    const isValidCommentData = addCommentSchema.safeParse(body);
+
+    if (!isValidCommentData) {
       return NextResponse.json(
-        { message: "Invalid input", success: false },
+        { message: "Invalid comment data", success: false },
         { status: 400 }
       );
     }
@@ -19,21 +20,19 @@ export async function POST(req: NextRequest) {
     const token = req.cookies.get("token")?.value;
     const payload = await verifyJwtToken(token);
     const { userId, name } = payload?.payload;
-    const { title, content, coverImgURL } = body;
+    const { content, blogId } = body;
 
-    const blog = await Blog.create({
+    const comment = await Comment.create({
       userId: userId,
-      title: title,
+      blogId: blogId,
       content: content,
-      coverImgURL: coverImgURL || "",
       createdBy: name,
       createdAt: new Date(),
     });
-
-    await blog.save();
+    const createdComment = await comment.save();
 
     return NextResponse.json(
-      { message: "Blog added successfully", success: true },
+      { message: "Comment Added", success: true },
       { status: 200 }
     );
   } catch (error: any) {
