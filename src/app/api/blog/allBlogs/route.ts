@@ -1,7 +1,7 @@
 import Blog from "@/model/blog";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
     const blogs = await Blog.find({});
     console.log("all", blogs);
