@@ -9,7 +9,6 @@ import {
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import toast, { Toaster } from "react-hot-toast";
-import { AxiosResponse } from "axios";
 
 interface Blogs {
   _id: string;

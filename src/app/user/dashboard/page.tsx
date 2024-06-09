@@ -2,8 +2,12 @@
 import BlogsCard from "@/components/BlogsCard";
 import { CardSkeleton } from "@/components/skeletons";
 import { useEffect, useState } from "react";
+import { unstable_noStore as noStore } from 'next/cache';
 
+
+export const dynamic = "force-dynamic";
 export default function Dashboard() {
+  noStore();
   interface Blogs {
     _id: string;
     userId: string;
@@ -16,6 +20,7 @@ export default function Dashboard() {
   const [allBlogs, setAllBlogs] = useState<Blogs[]>();
 
   async function getAllBlogs() {
+    noStore();
     const res = await fetch("/api/blog/allBlogs")
       .then(async (res) => {
         const data = await res.json();
