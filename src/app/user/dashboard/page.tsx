@@ -1,26 +1,9 @@
+"use client";
 import BlogsCard from "@/components/BlogsCard";
-import { cookies } from "next/headers";
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
-import { unstable_noStore as noStore } from 'next/cache'
+import { CardSkeleton } from "@/components/skeletons";
+import { useEffect, useState } from "react";
 
-
-async function getAllBlogs() {
-  const cookie = cookies().toString();
-  const res = await fetch(`${process.env.DOMAIN}/api/blog/allBlogs`, {
-    headers: { Cookie: cookie },
-  })
-    .then(async (res) => {
-      const data = await res.json();
-      return data.blogs;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  return res;
-}
-
-export default async function Dashboard() {
+export default function Dashboard() {
   interface Blogs {
     _id: string;
     userId: string;
@@ -30,13 +13,45 @@ export default async function Dashboard() {
     createdBy: string;
     createdAt: Date;
   }
-  const allBlogs: Blogs[] = await getAllBlogs();
-  noStore();
+  const [allBlogs, setAllBlogs] = useState<Blogs[]>();
+
+  async function getAllBlogs() {
+    const res = await fetch("/api/blog/allBlogs")
+      .then(async (res) => {
+        const data = await res.json();
+        return data.blogs;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    setAllBlogs(res);
+  }
+
+  useEffect(() => {
+    getAllBlogs();
+  }, []);
 
   return (
     <div className="mt-4">
       <h1 className="text-2xl mb-5 text-center">Blogs</h1>
-      <BlogsCard blogs={allBlogs} />
+      {allBlogs ? (
+        <BlogsCard blogs={allBlogs} />
+      ) : (
+        <div className="mt-14 flex flex-col items-center md:flex-row gap-x-12 gap-y-12 flex-wrap">
+          <CardSkeleton />
+          <CardSkeleton />
+          <CardSkeleton />
+          <CardSkeleton />
+          <CardSkeleton />
+          <CardSkeleton />
+          <CardSkeleton />
+          <CardSkeleton />
+          <CardSkeleton />
+          <CardSkeleton />
+          <CardSkeleton />
+          <CardSkeleton />
+        </div>
+      )}
     </div>
   );
 }
