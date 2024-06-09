@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   try {
+    const body = await req.json();
     const blogs = await Blog.find({});
 
     return NextResponse.json(

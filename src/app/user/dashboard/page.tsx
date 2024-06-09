@@ -22,6 +22,7 @@ export default function Dashboard() {
     noStore();
     const res = await fetch("/api/blog/allBlogs", {
       cache: "no-cache",
+      body: JSON.stringify({ blog: allBlogs }),
     })
       .then(async (res) => {
         const data = await res.json();
