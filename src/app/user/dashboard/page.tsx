@@ -1,5 +1,9 @@
 import BlogsCard from "@/components/BlogsCard";
 import { cookies } from "next/headers";
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+import { unstable_noStore as noStore } from 'next/cache'
+
 
 async function getAllBlogs() {
   const cookie = cookies().toString();
@@ -16,7 +20,6 @@ async function getAllBlogs() {
   return res;
 }
 
-export const revalidate = 0;
 export default async function Dashboard() {
   interface Blogs {
     _id: string;
@@ -28,6 +31,7 @@ export default async function Dashboard() {
     createdAt: Date;
   }
   const allBlogs: Blogs[] = await getAllBlogs();
+  noStore();
 
   return (
     <div className="mt-4">
