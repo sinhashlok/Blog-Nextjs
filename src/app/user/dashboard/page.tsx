@@ -4,7 +4,6 @@ import { cookies } from "next/headers";
 async function getAllBlogs() {
   const cookie = cookies().toString();
   const res = await fetch(`${process.env.DOMAIN}/api/blog/allBlogs`, {
-    next: { revalidate: 0 },
     headers: { Cookie: cookie },
   })
     .then(async (res) => {
@@ -17,6 +16,7 @@ async function getAllBlogs() {
   return res;
 }
 
+export const revalidate = 0;
 export default async function Dashboard() {
   interface Blogs {
     _id: string;
